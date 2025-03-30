@@ -1,9 +1,9 @@
-from .ollama_prompt import OllamaPromptNode
+from .OllamaTransform import OllamaTransform
 
 NODE_CLASS_MAPPINGS = {
-    "OllamaPromptNode": OllamaPromptNode,
+    "OllamaTransform": OllamaTransform,
 }
 
 NODE_DISPLAY_NAME_MAPPINGS = {
-    "OllamaPromptNode": "Ollama_Prompt",
+    "OllamaTransform": "Ollama Transform",
 }
