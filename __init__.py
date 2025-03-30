@@ -8,5 +8,5 @@ NODE_CLASS_MAPPINGS = {
 
 NODE_DISPLAY_NAME_MAPPINGS = {
     "ai4artsed_ollama": "AI4ArtsEd Ollama Prompt",
-    "SimpleTextDisplay": "🖹 Simple Text Display",
+    "SimpleTextDisplay": "Simple Text Display",
 }
