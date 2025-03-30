@@ -26,7 +26,7 @@ class ai4artsed_ollama:
         }
 
     RETURN_TYPES = ("STRING",)
-    RETURN_NAMES = ("output",)
+    RETURN_NAMES = ("generated_text",)
     FUNCTION = "run"
     CATEGORY = "Ollama"
 
