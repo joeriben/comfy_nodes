@@ -9,7 +9,8 @@ class ai4artsed_ollama:
     def INPUT_TYPES(cls):
         return {
             "required": {
-                "input_text": ("STRING", {"forceInput": True, "multiline": True}),
+                "input_prompt": ("STRING", {"forceInput": True, "multiline": True}),
+                "input_context": ("STRING", {"forceInput": True, "multiline": True}),
                 "style_prompt": ("STRING", {"default": "Translate into an Indigenous poetic form", "multiline": True}),
                 "url": ("STRING", {"default": "http://localhost:11434"}),
                 "model": (["gemma3:27b", "deepseek-r1:32b", "deepseek-r1:14b", "exaone-deep:32b"],),
@@ -24,7 +25,7 @@ class ai4artsed_ollama:
     CATEGORY = "Ollama"
 
     def run(self, input_text, style_prompt, url, model, debug, unload_after):
-        full_prompt = f"Task:\n{style_prompt.strip()}\n\nInput:\n{input_text.strip()}"
+        full_prompt = f"Task:\n{style_prompt.strip()}\n\nContext\n{input_context.strip() Prompt:\n{input_prompt.strip()}"
 
         client = Client(host=url)
         response = client.generate(
