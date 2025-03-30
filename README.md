@@ -15,6 +15,7 @@ This node allows you to combine a free-form prompt (e.g. translation, poetic rec
 - Sends the composed prompt to a specified model via Ollama.
 - Selectable model from dropdown (configurable in source).
 - Optional debug output to inspect prompt and response.
+- Optionally unloads the Ollama model after inference to free GPU memory.
 
 ---
 
@@ -27,6 +28,7 @@ This node allows you to combine a free-form prompt (e.g. translation, poetic rec
 | `url`          | STRING | Ollama server URL (default: `http://localhost:11434`)      |
 | `model`        | STRING | Selected model (dropdown: see source)                      |
 | `debug`        | SELECT | "enable" or "disable" console output for debugging         |
+| `unload_after` | SELECT | "enable" to unload the model after inference               |
 
 ---
 
@@ -45,3 +47,6 @@ Place this repository inside your `ComfyUI/custom_nodes/` directory:
 ```bash
 git clone https://github.com/yourusername/ai4artsed_ollama.git
 ```
+
+Then restart ComfyUI.
+
