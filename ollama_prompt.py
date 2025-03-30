@@ -21,22 +21,31 @@ class ai4artsed_ollama:
     RETURN_NAMES = ("output",)
     FUNCTION = "run"
     CATEGORY = "Ollama"
+    
+def run(self, input_text, style_prompt, url, model, debug, unload_after):
+    full_prompt = f"Task:\n{style_prompt.strip()}\n\nInput:\n{input_text.strip()}"
 
-    def run(self, input_text, style_prompt, url, model, debug):
-        full_prompt = f"Task:\n{style_prompt.strip()}\n\nInput:\n{input_text.strip()}"
+    client = Client(host=url)
+    response = client.generate(
+        model=model,
+        prompt=full_prompt,
+        keep_alive="5m",
+        format=""
+    )
 
-        client = Client(host=url)
-        response = client.generate(
-            model=model,
-            prompt=full_prompt,
-            keep_alive="5m",
-            format=""
-        )
+    if debug == "enable":
+        print(">>> AI4ARTSED OLLAMA NODE <<<")
+        print("Model:", model)
+        print("Prompt sent:\n", full_prompt)
+        print("Response received:\n", response.get("response", ""))
 
-        if debug == "enable":
-            print(">>> AI4ARTSED OLLAMA NODE <<<")
-            print("Model:", model)
-            print("Prompt sent:\n", full_prompt)
-            print("Response received:\n", response.get("response", ""))
+    # Modell entladen, wenn gewünscht
+    if unload_after == "enable":
+        try:
+            client._post("/api/unload", json={"model": model})
+            if debug == "enable":
+                print(f"Model '{model}' unloaded to free VRAM.")
+        except Exception as e:
+            print(f"[AI4ArtsEd Ollama Node] Unload failed: {e}")
 
-        return (response.get("response", ""),)
+    return (response.get("response", ""),)
