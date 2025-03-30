@@ -1,6 +1,7 @@
 from ollama import Client
 from pprint import pprint
 import requests
+import subprocess
 
 class ai4artsed_ollama:
     def __init__(self):
@@ -32,19 +33,18 @@ class ai4artsed_ollama:
     def run(self, input_prompt, input_context, style_prompt, url, model, debug, unload_after, clear_context):
         full_prompt = f"Task:\n{style_prompt.strip()}\n\nContext:\n{input_context.strip()}\nPrompt:\n{input_prompt.strip()}"
 
-        client = Client(host=url)
-
-        # ⬛ Kontext leeren (API: /api/delete)
+        # Kontext löschen via CLI (/clear)
         if clear_context == "enable":
             try:
-                delete_url = url.rstrip("/") + "/api/delete"
-                res = requests.post(delete_url, json={"model": model})
+                subprocess.run(["ollama", "clear"], check=True)
                 if debug == "enable":
-                    print(f"[AI4ArtsEd Ollama Node] Cleared context: {res.status_code}")
+                    print("[AI4ArtsEd Ollama Node] Cleared context using 'ollama clear'")
             except Exception as e:
                 print(f"[AI4ArtsEd Ollama Node] Context clearing failed: {e}")
 
-        # 🧠 Anfrage an Modell
+        client = Client(host=url)
+
+        # Anfrage an Modell
         response = client.generate(
             model=model,
             prompt=full_prompt,
@@ -52,14 +52,14 @@ class ai4artsed_ollama:
             format=""
         )
 
-        # 📋 Debug-Ausgabe
+        # Debug-Ausgabe
         if debug == "enable":
             print(">>> AI4ARTSED OLLAMA NODE <<<")
             print("Model:", model)
             print("Prompt sent:\n", full_prompt)
             print("Response received:\n", response.get("response", ""))
 
-        # 🧹 Modell ggf. entladen
+        # Modell ggf. entladen
         if unload_after == "enable":
             try:
                 unload_url = url.rstrip("/") + "/api/unload"
