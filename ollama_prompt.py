@@ -81,7 +81,7 @@ class OllamaPromptNode:
     
     @classmethod
     def NODE_CATEGORY(cls):
-        return "Custom_Nodes/Ollama"
+        return "Ollama"
     
     UI = {
         "text": {
