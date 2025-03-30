@@ -1,7 +1,6 @@
 from ollama import Client
 from pprint import pprint
 import requests
-import subprocess
 
 class ai4artsed_ollama:
     def __init__(self):
@@ -21,38 +20,28 @@ class ai4artsed_ollama:
                 "model": (["mistral:7b", "gemma3:27b", "deepseek-r1:32b", "deepseek-r1:14b", "exaone-deep:32b"],),
                 "debug": (["enable", "disable"],),
                 "unload_after": (["enable", "disable"],),
-                "clear_context": (["enable", "disable"],),
             }
         }
 
     RETURN_TYPES = ("STRING",)
-    RETURN_NAMES = ("generated_text",)
+    RETURN_NAMES = ("output",)
     FUNCTION = "run"
     CATEGORY = "Ollama"
 
-    def run(self, input_prompt, input_context, style_prompt, url, model, debug, unload_after, clear_context):
+    def run(self, input_prompt, input_context, style_prompt, url, model, debug, unload_after):
         full_prompt = f"Task:\n{style_prompt.strip()}\n\nContext:\n{input_context.strip()}\nPrompt:\n{input_prompt.strip()}"
-
-        # Kontext löschen via CLI (/clear)
-        if clear_context == "enable":
-            try:
-                subprocess.run(["ollama", "clear"], check=True)
-                if debug == "enable":
-                    print("[AI4ArtsEd Ollama Node] Cleared context using 'ollama clear'")
-            except Exception as e:
-                print(f"[AI4ArtsEd Ollama Node] Context clearing failed: {e}")
 
         client = Client(host=url)
 
-        # Anfrage an Modell
+        # Anfrage an Modell mit explizitem Systemprompt (Kontextreset)
         response = client.generate(
             model=model,
             prompt=full_prompt,
             keep_alive="5m",
-            format=""
+            format="",
+            system="You are a fresh assistant instance. Forget all previous conversation history."
         )
 
-        # Debug-Ausgabe
         if debug == "enable":
             print(">>> AI4ARTSED OLLAMA NODE <<<")
             print("Model:", model)
