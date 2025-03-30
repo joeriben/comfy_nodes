@@ -1,0 +1,8 @@
+{
+  "name": "ai4artsed_comfyui",
+  "version": "1.0.0",
+  "description": "Custom nodes for ComfyUI by ai4artsed",
+  "update_url": "https://github.com/joeriben/ai4artsed_comfyui",
+  "author": "joeriben",
+  "license": "MIT"
+}
