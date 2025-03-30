@@ -25,7 +25,7 @@ class ai4artsed_ollama:
     CATEGORY = "Ollama"
 
     def run(self, input_text, style_prompt, url, model, debug, unload_after):
-        full_prompt = f"Task:\n{style_prompt.strip()}\n\nContext\n{input_context.strip() Prompt:\n{input_prompt.strip()}"
+        full_prompt = f"Task:\n{style_prompt.strip()}\n\nContext\n{input_context.strip()}\nPrompt:\n{input_prompt.strip()}"
 
         client = Client(host=url)
         response = client.generate(
