@@ -6,6 +6,8 @@ A custom [ComfyUI](https://github.com/comfyanonymous/ComfyUI) node for stylistic
 
 This node allows you to combine a free-form prompt (e.g. translation, poetic recoding, genre shift) with externally supplied text in the ComfyUI graph. The result is processed via an Ollama-hosted model and returned as plain text.
 
+IMPORTANT: You may chain two or more instances of this node. If you do so, make sure to deactivate "unload_after" in every instance but the last one. (You probably want to unload Ollama after the task in order to have enough GPU memory for your text2image-Model.)
+
 ---
 
 ## 🔧 Features
