@@ -4,6 +4,8 @@ import requests
 from PIL import Image
 
 class OllamaPromptNode:
+    # Required property for ComfyUI to identify the node type.
+    class_type = "OllamaPromptNode"
     RETURN_TYPES = ("STRING",)
     
     def __init__(self):
@@ -11,7 +13,7 @@ class OllamaPromptNode:
         self.stored_prompt = "default prompt"
     
     def execute(self, text, image: Image.Image = None):
-        # If 'text' is not a string (e.g. CONDITIONING), attempt to convert it.
+        # Convert non-string input (e.g. CONDITIONING) to a string.
         if not isinstance(text, str):
             try:
                 if isinstance(text, dict) and "prompt" in text:
@@ -24,10 +26,7 @@ class OllamaPromptNode:
                 print("Conversion error:", e)
                 text = str(text)
         
-        # Use a constant storage key (internally, not user-provided)
-        prompt_storage_key = "my_ollama_prompt"
-        
-        # Combine the stored prompt with the incoming text.
+        # Combine stored prompt with the input text.
         combined_prompt = f"{self.stored_prompt} {text}"
         payload = {
             "prompt": combined_prompt,
@@ -35,7 +34,7 @@ class OllamaPromptNode:
             "model": "gemma3",
         }
         
-        # If an image is provided, encode it as base64.
+        # Process image input, if available.
         if image is not None:
             buffered = io.BytesIO()
             image.save(buffered, format="PNG")
@@ -81,7 +80,7 @@ class OllamaPromptNode:
     
     @classmethod
     def NODE_CATEGORY(cls):
-        return "Ollama"
+        return "Custom_Nodes/Ollama"
     
     UI = {
         "text": {
@@ -95,14 +94,3 @@ class OllamaPromptNode:
             "type": "IMAGE"
         }
     }
-
-# Registration code in __init__.py (in the same custom node folder):
-# from .ollama_prompt import OllamaPromptNode
-#
-# NODE_CLASS_MAPPINGS = {
-#     "OllamaPromptNode": OllamaPromptNode,
-# }
-#
-# NODE_DISPLAY_NAME_MAPPINGS = {
-#     "OllamaPromptNode": "Ollama_Prompt",
-# }
