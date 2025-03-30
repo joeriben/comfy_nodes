@@ -14,7 +14,7 @@ class ai4artsed_ollama:
                 "input_context": ("STRING", {"forceInput": True, "multiline": True}),
                 "style_prompt": ("STRING", {"default": "Translate the prompt according to the context. Translate epistemic, cultural, and aesthetic, as well as value-related contexts.", "multiline": True}),
                 "url": ("STRING", {"default": "http://localhost:11434"}),
-                "model": (["gemma3:27b", "deepseek-r1:32b", "deepseek-r1:14b", "exaone-deep:32b"],),
+                "model": (["mistral:7b", "gemma3:27b", "deepseek-r1:32b", "deepseek-r1:14b", "exaone-deep:32b"],),
                 "debug": (["enable", "disable"],),
                 "unload_after": (["enable", "disable"],),
             }
