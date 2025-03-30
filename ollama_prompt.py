@@ -4,20 +4,21 @@ import requests
 from PIL import Image
 
 class OllamaPromptNode:
-    # This attribute tells ComfyUI what type the node returns.
     RETURN_TYPES = ("STRING",)
     
     def __init__(self):
         self.stored_prompt = ""
     
-    def execute(self, text, image: Image.Image = None, prompt_storage_key="my_ollama_prompt"):
-        # If 'text' is not a string (e.g. CONDITIONING), convert it.
+    def execute(self, text, image: Image.Image = None, prompt_storage_key=None):
+        # Use default if prompt_storage_key is not provided
+        if not prompt_storage_key:
+            prompt_storage_key = "my_ollama_prompt"
+        
+        # Convert text if needed (handles CONDITIONING type)
         if not isinstance(text, str):
             try:
-                # Commonly, conditioning outputs are dictionaries with a "prompt" key.
                 if isinstance(text, dict) and "prompt" in text:
                     text = text["prompt"]
-                # Alternatively, if it's a list/tuple, take the first element.
                 elif isinstance(text, (list, tuple)) and len(text) > 0:
                     text = str(text[0])
                 else:
@@ -28,11 +29,10 @@ class OllamaPromptNode:
         
         # Load or initialize the persistent prompt.
         if not self.stored_prompt:
-            # Here, you might load from persistent storage.
             self.stored_prompt = "default prompt"
-            # Optionally, store it using your own mechanism.
+            # Optionally, store it using your persistent storage mechanism.
         
-        # Combine the stored prompt with the incoming text.
+        # Combine stored prompt with input text.
         combined_prompt = f"{self.stored_prompt} {text}"
         payload = {
             "prompt": combined_prompt,
@@ -40,7 +40,7 @@ class OllamaPromptNode:
             "model": "gemma3",
         }
         
-        # If an image is provided, encode it as Base64.
+        # Process image input, if available.
         if image is not None:
             buffered = io.BytesIO()
             image.save(buffered, format="PNG")
@@ -62,13 +62,12 @@ class OllamaPromptNode:
     
     @classmethod
     def INPUT_TYPES(cls):
-        # Accept both "STRING" and "CONDITIONING" for the 'text' input.
         return {
             "required": {
                 "text": ("STRING", "CONDITIONING"),
-                "prompt_storage_key": "STRING"
             },
             "optional": {
+                "prompt_storage_key": "STRING",  # Optional, defaults to "my_ollama_prompt" if not connected.
                 "image": "IMAGE"
             }
         }
@@ -96,18 +95,19 @@ class OllamaPromptNode:
             "multiline": False,
             "default": ""
         },
-        "image": {
-            "label": "Input_Image",
-            "type": "IMAGE"
-        },
         "prompt_storage_key": {
             "label": "Prompt_Storage_Key",
             "type": "STRING",
             "default": "my_ollama_prompt"
+        },
+        "image": {
+            "label": "Input_Image",
+            "type": "IMAGE"
         }
     }
 
-# Registration in __init__.py:
+# In your __init__.py for the package, register the node:
+#
 # from .ollama_prompt import OllamaPromptNode
 #
 # NODE_CLASS_MAPPINGS = {
@@ -117,4 +117,3 @@ class OllamaPromptNode:
 # NODE_DISPLAY_NAME_MAPPINGS = {
 #     "OllamaPromptNode": "Ollama_Prompt",
 # }
-
