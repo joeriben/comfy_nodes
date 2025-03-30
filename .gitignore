@@ -1,0 +1,41 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Editor/IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# MacOS system files
+.DS_Store
+
+# Python virtual environments
+venv/
+.env/
+.venv/
+
+# Log files and system dumps
+*.log
+*.tmp
+*.bak
+*.orig
+
+# ComfyUI-specific user/config paths (optional)
+comfyui_temp/
+output/
+input/
+
+# PyInstaller / packaging
+*.spec
+dist/
+build/
+
+# IPython notebooks (if any)
+*.ipynb_checkpoints/
+
+# OS-generated files
+Thumbs.db
+ehthumbs.db
