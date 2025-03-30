@@ -1,8 +1,10 @@
 {
-  "name": "ai4artsed_comfyui",
-  "version": "1.0.0",
-  "description": "Custom nodes for ComfyUI by ai4artsed",
-  "update_url": "https://github.com/joeriben/ai4artsed_comfyui",
-  "author": "joeriben",
-  "license": "MIT"
+    "name": "comfyui-ollama-transform",
+    "display_name": "Ollama Transform Node",
+    "version": "1.0.0",
+    "author": "Your Name",
+    "description": "A simplified ComfyUI node that prepends fixed style instructions to a text prompt before sending it to Ollama for generation.",
+    "nodes": ["OllamaTransform"],
+    "requirements": ["ollama"],
+    "license": "Apache-2.0"
 }
