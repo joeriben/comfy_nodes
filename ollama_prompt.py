@@ -4,16 +4,42 @@ import requests
 from PIL import Image
 
 class OllamaPromptNode:
-    # Required property for ComfyUI to identify the node type.
+    # Required static properties for ComfyUI
     class_type = "OllamaPromptNode"
     RETURN_TYPES = ("STRING",)
+    INPUT_TYPES = {
+        "required": {
+            "text": ("STRING", "CONDITIONING")
+        },
+        "optional": {
+            "image": "IMAGE"
+        }
+    }
+    OUTPUT_TYPES = {"text": "STRING"}
+    FUNCTION = "execute"
+    NODE_TITLE = "Ollama_Prompt"
+    NODE_CATEGORY = "Custom_Nodes/Ollama"
+    
+    # UI layout for the node's inputs.
+    UI = {
+        "text": {
+            "label": "Input_Prompt",
+            "type": "TEXT",
+            "multiline": False,
+            "default": ""
+        },
+        "image": {
+            "label": "Input_Image",
+            "type": "IMAGE"
+        }
+    }
     
     def __init__(self):
-        # Initialize with a default stored prompt.
+        # Initialize stored_prompt with a default value.
         self.stored_prompt = "default prompt"
     
     def execute(self, text, image: Image.Image = None):
-        # Convert non-string input (e.g. CONDITIONING) to a string.
+        # If the incoming 'text' is not a string (e.g. CONDITIONING), convert it.
         if not isinstance(text, str):
             try:
                 if isinstance(text, dict) and "prompt" in text:
@@ -26,7 +52,7 @@ class OllamaPromptNode:
                 print("Conversion error:", e)
                 text = str(text)
         
-        # Combine stored prompt with the input text.
+        # Combine the stored prompt with the incoming text.
         combined_prompt = f"{self.stored_prompt} {text}"
         payload = {
             "prompt": combined_prompt,
@@ -34,7 +60,7 @@ class OllamaPromptNode:
             "model": "gemma3",
         }
         
-        # Process image input, if available.
+        # If an image is provided, encode it as base64.
         if image is not None:
             buffered = io.BytesIO()
             image.save(buffered, format="PNG")
@@ -53,44 +79,15 @@ class OllamaPromptNode:
             generated_text = "Ollama Error"
         
         return (generated_text,)
-    
-    @classmethod
-    def INPUT_TYPES(cls):
-        # Accept both STRING and CONDITIONING for the text input.
-        return {
-            "required": {
-                "text": ("STRING", "CONDITIONING")
-            },
-            "optional": {
-                "image": "IMAGE"
-            }
-        }
-    
-    @classmethod
-    def OUTPUT_TYPES(cls):
-        return {"text": "STRING"}
-    
-    @classmethod
-    def FUNCTION(cls):
-        return "execute"
-    
-    @classmethod
-    def NODE_TITLE(cls):
-        return "Ollama_Prompt"
-    
-    @classmethod
-    def NODE_CATEGORY(cls):
-        return "Custom_Nodes/Ollama"
-    
-    UI = {
-        "text": {
-            "label": "Input_Prompt",
-            "type": "TEXT",
-            "multiline": False,
-            "default": ""
-        },
-        "image": {
-            "label": "Input_Image",
-            "type": "IMAGE"
-        }
-    }
+
+# __init__.py file for registering the node:
+#
+# from .ollama_prompt import OllamaPromptNode
+#
+# NODE_CLASS_MAPPINGS = {
+#     "OllamaPromptNode": OllamaPromptNode,
+# }
+#
+# NODE_DISPLAY_NAME_MAPPINGS = {
+#     "OllamaPromptNode": "Ollama_Prompt",
+# }
