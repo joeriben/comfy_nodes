@@ -18,9 +18,8 @@ class OllamaPromptNode:
     OUTPUT_TYPES = {"text": "STRING"}
     FUNCTION = "execute"
     NODE_TITLE = "Ollama_Prompt"
-    NODE_CATEGORY = "Custom_Nodes/Ollama"
-    
-    # UI layout for the node's inputs.
+    NODE_CATEGORY = "ai4artsed"  # Changed to your requested category
+
     UI = {
         "text": {
             "label": "Input_Prompt",
@@ -35,11 +34,10 @@ class OllamaPromptNode:
     }
     
     def __init__(self):
-        # Initialize stored_prompt with a default value.
         self.stored_prompt = "default prompt"
     
     def execute(self, text, image: Image.Image = None):
-        # If the incoming 'text' is not a string (e.g. CONDITIONING), convert it.
+        # If 'text' is not a string, convert it.
         if not isinstance(text, str):
             try:
                 if isinstance(text, dict) and "prompt" in text:
@@ -60,7 +58,7 @@ class OllamaPromptNode:
             "model": "gemma3",
         }
         
-        # If an image is provided, encode it as base64.
+        # Process the optional image input.
         if image is not None:
             buffered = io.BytesIO()
             image.save(buffered, format="PNG")
@@ -80,7 +78,7 @@ class OllamaPromptNode:
         
         return (generated_text,)
 
-# __init__.py file for registering the node:
+# __init__.py registration file (in the same custom node folder) should contain:
 #
 # from .ollama_prompt import OllamaPromptNode
 #
