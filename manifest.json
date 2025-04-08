@@ -1,10 +1,10 @@
 {
-  "name": "ai4artsed-ollama-node",
-  "display_name": "AI4ArtsEd Ollama Prompt Node",
+  "name": "ai4artsed-nodes",
+  "display_name": "AI4ArtsEd Nodes",
   "version": "0.2.0",
   "author": "Prof. Dr. Benjamin Jörissen",
-  "description": "ComfyUI node for applying stylistic transformations to input text using locally hosted Ollama models.",
-  "nodes": ["ai4artsed_ollama"],
+  "description": "ComfyUI nodes for the project AI for Arts Education",
+  "nodes": ["ai4artsed_ollama", "ai4artsed_openrouter"],
   "requirements": ["ollama"],
   "license": "Apache-2.0"
 }
