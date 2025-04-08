@@ -26,20 +26,11 @@ class ai4artsed_openrouter_imageanalysis:
                     "default": "Describe the image. Detect its likely cultural context. Enrich your description with analyses of the cultural constellations and meanings, relations, values expressed in the image."
                 }),
                 "api_key": ("STRING", {"multiline": False, "default": "sk-..."}),
-                "model": ([
-                    "openai/gpt-4o",
-                    "openai/gpt-4-vision-preview",
-                    "mistral/mistral-small",
-                    "meta-llama/llama-3-70b-instruct"
-                ],),
+                "model": (["openai/gpt-4o", "google/gemini-flash-1.5", "qwen/qwen-vl-plus", "meta-llama/llama-3.2-11b-vision-instruct"],),
                 "max_tokens": ("INT", {"default": 1024, "min": 256, "max": 4096}),
                 "temperature": ("FLOAT", {"default": 0.7, "min": 0.0, "max": 2.0}),
             }
         }
-
-    @classmethod
-    def OUTPUT_TYPES(cls):
-        return ("STRING",)
 
     RETURN_TYPES = ("STRING",)
     RETURN_NAMES = ("response",)
@@ -52,8 +43,13 @@ class ai4artsed_openrouter_imageanalysis:
         encoded_image = self._encode_image(image_np)
 
         messages = [
-            {"role": "system", "content": instruction},
-            {"role": "user", "content": f"Attached image: {encoded_image[:50]}..."}
+            {
+                "role": "user",
+                "content": [
+                    {"type": "image_url", "image_url": {"url": encoded_image}},
+                    {"type": "text", "text": instruction}
+                ]
+            }
         ]
 
         payload = {
@@ -81,7 +77,6 @@ class ai4artsed_openrouter_imageanalysis:
             image = image.cpu().detach().numpy()
 
         if image.ndim == 3:
-            # Check for HWC format and convert to CHW if needed
             if image.shape[0] not in (1, 3, 4) and image.shape[-1] in (1, 3, 4):
                 image = image.transpose(2, 0, 1)
 
@@ -91,7 +86,6 @@ class ai4artsed_openrouter_imageanalysis:
         return image
 
     def _encode_image(self, image_array):
-        # Convert from CHW to HWC for encoding
         image = image_array.transpose(1, 2, 0)
         if image.dtype != np.uint8:
             image = np.clip(image, 0, 1)
