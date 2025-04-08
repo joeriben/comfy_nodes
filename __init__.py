@@ -1,5 +1,5 @@
 from .ollama_prompt import ai4artsed_ollama
-from .ollama_prompt_openrouter import ai4artsed_openrouter
+from .openrouter_prompt import ai4artsed_openrouter
 
 NODE_CLASS_MAPPINGS = {
     "ai4artsed_ollama": ai4artsed_ollama,
