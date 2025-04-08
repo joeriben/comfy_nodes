@@ -4,7 +4,7 @@ import cv2
 import base64
 import requests
 
-class AI4ArtsEd_OpenRouter_ImageAnalysis:
+class ai4artsed_openrouter_imageanalysis:
     @classmethod
     def INPUT_TYPES(cls):
         return {
@@ -94,5 +94,5 @@ NODE_CLASS_MAPPINGS = {
 }
 
 NODE_DISPLAY_NAME_MAPPINGS = {
-    "ai4artsed_openrouter_imageanalysis": "AI4ArtsEd OpenRouter: Image Analysis",
+    "ai4artsed_openrouter_imageanalysis": "AI4ArtsEd OpenRouter: ImageAnalysis",
 }
