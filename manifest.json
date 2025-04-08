@@ -1,7 +1,7 @@
 {
   "name": "ai4artsed-ollama-node",
   "display_name": "AI4ArtsEd Ollama Prompt Node",
-  "version": "1.0.0",
+  "version": "0.2.0",
   "author": "Prof. Dr. Benjamin Jörissen",
   "description": "ComfyUI node for applying stylistic transformations to input text using locally hosted Ollama models.",
   "nodes": ["ai4artsed_ollama"],
