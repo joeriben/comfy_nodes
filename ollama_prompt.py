@@ -26,7 +26,7 @@ class ai4artsed_ollama:
     RETURN_TYPES = ("STRING",)
     RETURN_NAMES = ("output",)
     FUNCTION = "run"
-    CATEGORY = "Ollama"
+    CATEGORY = "AI4ArtsEd"
 
     def run(self, input_prompt, input_context, style_prompt, url, model, debug, unload_after):
         full_prompt = f"Task:\n{style_prompt.strip()}\n\nContext:\n{input_context.strip()}\nPrompt:\n{input_prompt.strip()}"
