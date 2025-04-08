@@ -11,5 +11,5 @@ NODE_CLASS_MAPPINGS = {
 NODE_DISPLAY_NAME_MAPPINGS = {
     "ai4artsed_ollama": "AI4ArtsEd Ollama Promptinterception",
     "ai4artsed_openrouter": "AI4ArtsEd OpenRouter Promptinterception",
-    "ai4artsed_openrouter_imageanalysis": "AI4ArtsEd OpenRouter Image Analysis",
+    "ai4artsed_openrouter_imageanalysis": "AI4ArtsEd OpenRouter ImageAnalysis",
 }
