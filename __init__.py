@@ -1,6 +1,6 @@
 from .ollama_prompt import ai4artsed_ollama
 from .simple_text_display import SimpleTextDisplay
-from .ai4artsed_openrouter import ai4artsed_openrouter
+from .ollama_prompt_openrouter import ai4artsed_openrouter
 
 NODE_CLASS_MAPPINGS = {
     "ai4artsed_ollama": ai4artsed_ollama,
