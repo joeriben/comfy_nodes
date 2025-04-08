@@ -26,7 +26,12 @@ class ai4artsed_openrouter_imageanalysis:
                     "default": "Describe the image. Detect its likely cultural context. Enrich your description with analyses of the cultural constellations and meanings, relations, values expressed in the image."
                 }),
                 "api_key": ("STRING", {"multiline": False, "default": "sk-..."}),
-                "model": ("STRING", {"multiline": False, "default": "openai/gpt-4o"}),
+                "model": ([
+                    "openai/gpt-4o",
+                    "openai/gpt-4-vision-preview",
+                    "mistral/mistral-small",
+                    "meta-llama/llama-3-70b-instruct"
+                ],),
                 "max_tokens": ("INT", {"default": 1024, "min": 256, "max": 4096}),
                 "temperature": ("FLOAT", {"default": 0.7, "min": 0.0, "max": 2.0}),
             }
@@ -99,7 +104,7 @@ class ai4artsed_openrouter_imageanalysis:
         jpg_as_text = base64.b64encode(buffer).decode("utf-8")
         return f"data:image/jpeg;base64,{jpg_as_text}"
 
-# Korrigierte Mappings:
+# Required for ComfyUI to discover and use the node
 NODE_CLASS_MAPPINGS = {
     "ai4artsed_openrouter_imageanalysis": ai4artsed_openrouter_imageanalysis,
 }
