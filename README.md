@@ -1,44 +1,81 @@
-# AI4ArtsEd Ollama Prompt Node
+# AI4ArtsEd Prompt Nodes for ComfyUI
 
 Experimental nodes for ComfyUI. For more, see https\://kubi-meta.de/ai4artsed
 
-A custom [ComfyUI](https://github.com/comfyanonymous/ComfyUI) node for stylistic and cultural transformation of input text using local LLMs served via [Ollama](https://ollama.com/).
-
-This node allows you to combine a free-form prompt (e.g. translation, poetic recoding, genre shift) with externally supplied text in the ComfyUI graph. The result is processed via an Ollama-hosted model and returned as plain text.
-
-IMPORTANT: You may chain two or more instances of this node. If you do so, make sure to deactivate "unload_after" in every instance but the last one. (You probably want to unload Ollama after the task in order to have enough GPU memory for your text2image-Model.)
+These custom [ComfyUI](https://github.com/comfyanonymous/ComfyUI) nodes enable stylistic and cultural transformation of text prompts using either local LLMs via [Ollama](https://ollama.com/) or cloud-hosted models via [OpenRouter](https://openrouter.ai/). They are especially designed for multimodal pipelines in education, arts, and cultural research contexts.
 
 ---
 
 ## 🔧 Features
 
-- Receives text input from other nodes (e.g. primitives, outputs, chains).
-- Adds a static instruction prompt to guide the transformation.
-- Sends the composed prompt to a specified model via Ollama.
-- Selectable model from dropdown (configurable in source).
-- Optional debug output to inspect prompt and response.
-- Optionally unloads the Ollama model after inference to free GPU memory.
+- Accept input from any upstream node producing `STRING` values.
+- Combine it with a structured `style_prompt` and optional `context`.
+- Perform transformation via:
+  - **Ollama (local)** with GPU-backed models.
+  - **OpenRouter (remote)** using external API.
+- Return processed text as `STRING` output (suitable for chaining or CLIP encoding).
+- Optional debug logging to inspect full prompts and LLM responses.
+- Ollama node optionally unloads the model to free GPU memory.
+- OpenRouter node optionally reads the API key from a file.
 
 ---
 
-## 📥 Inputs
+## 🧩 Available Nodes
 
+### 1. `AI4ArtsEd Ollama Prompt`
+For use with a local [Ollama](https://ollama.com/) installation (running on `localhost`).
+
+#### 📥 Inputs
 | Name           | Type   | Description                                                |
 | -------------- | ------ | ---------------------------------------------------------- |
-| `input_text`   | STRING | Text input from another node (e.g. Primitive or Prompt)    |
-| `style_prompt` | STRING | Instruction for how to transform the input (in-node field) |
-| `url`          | STRING | Ollama server URL (default: `http://localhost:11434`)      |
-| `model`        | STRING | Selected model (dropdown: see source)                      |
-| `debug`        | SELECT | "enable" or "disable" console output for debugging         |
-| `unload_after` | SELECT | "enable" to unload the model after inference               |
+| `input_prompt` | STRING | Text to be transformed                                     |
+| `input_context`| STRING | Additional semantic/aesthetic context                      |
+| `style_prompt` | STRING | Instruction for the transformation                        |
+| `url`          | STRING | Ollama server URL (default: `http://localhost:11434`)     |
+| `model`        | STRING | Model identifier (dropdown, see source)                   |
+| `debug`        | SELECT | Enable console output                                      |
+| `unload_after` | SELECT | Unload the model after generation to free VRAM            |
 
----
-
-## 📤 Output
-
+#### 📤 Output
 | Name     | Type   | Description                             |
 | -------- | ------ | --------------------------------------- |
 | `output` | STRING | The transformed/generated text response |
+
+> IMPORTANT: You may chain multiple Ollama nodes. If you do so, **disable `unload_after` in all but the last one** to prevent GPU reloading delays.
+
+---
+
+### 2. `AI4ArtsEd OpenRouter Prompt`
+For use with cloud-hosted models from [openrouter.ai](https://openrouter.ai).
+
+#### 📥 Inputs
+| Name           | Type   | Description                                                |
+| -------------- | ------ | ---------------------------------------------------------- |
+| `input_prompt` | STRING | Text to be transformed                                     |
+| `input_context`| STRING | Additional semantic/aesthetic context                      |
+| `style_prompt` | STRING | Instruction for the transformation                        |
+| `api_key`      | STRING | OpenRouter API key (masked field)                          |
+| `model`        | STRING | Model identifier (dropdown, see source)                   |
+| `debug`        | SELECT | Enable console output                                      |
+
+#### 📤 Output
+| Name     | Type   | Description                             |
+| -------- | ------ | --------------------------------------- |
+| `output` | STRING | The transformed/generated text response |
+
+---
+
+## 🔐 API Key Configuration (OpenRouter)
+
+This node requires an API key for access to [openrouter.ai](https://openrouter.ai). There are two options for providing it:
+
+### 1. Enter manually (recommended for debugging)
+Paste your key into the `api_key` field of the node. The input will be masked in the UI.
+
+### 2. Use a local file
+Create a file named `openrouter.key` in the same folder as the node (typically `ComfyUI/custom_nodes/ai4artsed_comfyui/`). The file should contain only the API key as a single line (no quotes, no newline).
+
+> The file is automatically ignored by Git via `.gitignore`.
 
 ---
 
@@ -47,8 +84,18 @@ IMPORTANT: You may chain two or more instances of this node. If you do so, make 
 Place this repository inside your `ComfyUI/custom_nodes/` directory:
 
 ```bash
-git clone https://github.com/yourusername/ai4artsed_ollama.git
+git clone https://github.com/yourusername/ai4artsed_comfyui.git
 ```
 
 Then restart ComfyUI.
+
+OR
+
+Use the ComfyUI Node Manager!
+
+Make sure that:
+- Ollama is running locally (if used).
+- Your OpenRouter API key is configured.
+
+---
 
