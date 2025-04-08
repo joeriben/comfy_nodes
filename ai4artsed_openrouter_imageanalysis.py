@@ -38,7 +38,7 @@ class ai4artsed_openrouter_imageanalysis:
     RETURN_TYPES = ("STRING",)
     RETURN_NAMES = ("response",)
     FUNCTION = "analyze"
-    CATEGORY = "ai4artsed"
+    CATEGORY = "AI4ArtsEd"
 
     def analyze(self, images, query, api_key, model, max_tokens, temperature):
         encoded_images = []
@@ -51,8 +51,10 @@ class ai4artsed_openrouter_imageanalysis:
                 image_np = array[0]
             elif array.shape[0] == 3:
                 image_np = np.transpose(array, (1, 2, 0))
+            elif array.shape[0] == 4:
+                image_np = np.transpose(array[:3], (1, 2, 0))  # drop alpha
             else:
-                raise ValueError("Unsupported image shape: expected 1 or 3 channels.")
+                raise ValueError(f"Unsupported image shape: expected 1, 3, or 4 channels, got {array.shape[0]}")
 
             pil_image = Image.fromarray(image_np)
             buffer = BytesIO()
