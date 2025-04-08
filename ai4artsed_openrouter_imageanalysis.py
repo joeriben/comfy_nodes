@@ -1,100 +1,98 @@
-"""
-ai4artsed_openrouter_imageanalysis.py
-
-This node analyzes an input image by first ensuring that the image data is in the expected CHW format.
-If the input image is in HWC format (i.e. the channels are given in the last dimension), it transposes
-the array accordingly. The node then encodes the image and sends it to the OpenRouter image analysis API.
-"""
-
-import numpy as np
 import torch
-import requests
-import json
+import numpy as np
 import cv2
 import base64
+import requests
 
-class ai4artsed_openrouter_imageanalysis:
-    def __init__(self, aux_id=None, ver=None):
-        # Store auxiliary identifiers and version numbers if needed for the API
-        self.aux_id = aux_id
-        self.ver = ver
-
-    def analyze(self, images, **kwargs):
-        """
-        Analyzes the given image(s). Expects the first image in the list (or a single image)
-        in a tensor, numpy array, or image-like format.
-
-        This function ensures that the image array is in CHW format.
-        If not, and if the last dimension is one of (1, 3, 4), a transpose from HWC to CHW is applied.
-        """
-        # Use the first image if a list is provided
-        if isinstance(images, list):
-            if not images:
-                raise ValueError("No images provided for analysis.")
-            image = images[0]
-        else:
-            image = images
-
-        # Convert image to a numpy array if necessary
-        if isinstance(image, torch.Tensor):
-            # Detach and move to CPU if needed
-            array = image.cpu().detach().numpy()
-        elif not isinstance(image, np.ndarray):
-            array = np.array(image)
-        else:
-            array = image
-
-        # Check dimensionality and ordering:
-        if array.ndim == 3:
-            # If the first dimension is not one of (1, 3, or 4) but the last is,
-            # we assume the image is in HWC format and transpose it to CHW.
-            if array.shape[0] not in (1, 3, 4) and array.shape[-1] in (1, 3, 4):
-                array = array.transpose(2, 0, 1)
-
-        # Verify that the resulting array now has the channel dimension as the first axis.
-        if array.ndim < 3 or array.shape[0] not in (1, 3, 4):
-            raise ValueError(f"Unsupported image shape: expected 1, 3, or 4 channels, got {array.shape[0]}")
-
-        # Proceed with the image analysis process.
-        encoded_image = self.encode_image(array)
-        response = self.send_image_analysis_request(encoded_image)
-        return response
-
-    def encode_image(self, array):
-        """
-        Encodes the image array into a base64-encoded JPEG.
-        First, converts from CHW to HWC format for cv2 encoding.
-        """
-        # Convert from CHW to HWC for cv2
-        array_for_encoding = array.transpose(1, 2, 0)
-        
-        # Ensure the array is in the proper uint8 range:
-        if array_for_encoding.dtype != np.uint8:
-            # Scale the array values to [0, 255] if needed.
-            array_for_encoding = np.clip(array_for_encoding, 0, 1)
-            array_for_encoding = (array_for_encoding * 255).astype(np.uint8)
-        
-        # Encode the image as JPEG
-        success, buffer = cv2.imencode('.jpg', array_for_encoding)
-        if not success:
-            raise ValueError("Failed to encode image as JPEG.")
-        jpg_as_text = base64.b64encode(buffer).decode('utf-8')
-        return jpg_as_text
-
-    def send_image_analysis_request(self, encoded_image):
-        """
-        Sends the base64-encoded image to the OpenRouter API for analysis.
-        Replace the URL and adjust the payload as required by the API.
-        """
-        url = "https://api.openrouter.ai/analysis"  # This URL is a placeholder.
-        payload = {
-            "image": encoded_image,
-            "aux_id": self.aux_id,
-            "ver": self.ver
+class AI4ArtsEd_OpenRouter_ImageAnalysis:
+    @classmethod
+    def INPUT_TYPES(cls):
+        return {
+            "required": {
+                "images": ("IMAGE",),
+                "instruction": ("STRING", {
+                    "multiline": True,
+                    "default": "Describe the image. Detect its likely cultural context. Enrich your description with analyses of the cultural constellations and meanings, relations, values expressed in the image."
+                }),
+                "api_key": ("STRING", {"multiline": False, "default": "sk-..."}),
+                "model": ("STRING", {"multiline": False, "default": "openai/gpt-4o"}),
+                "max_tokens": ("INT", {"default": 1024, "min": 256, "max": 4096}),
+                "temperature": ("FLOAT", {"default": 0.7, "min": 0.0, "max": 2.0}),
+            }
         }
-        headers = {"Content-Type": "application/json"}
-        response = requests.post(url, data=json.dumps(payload), headers=headers)
-        if response.status_code == 200:
-            return response.json()
-        else:
-            raise ValueError(f"Failed to analyze image, status code {response.status_code}, response: {response.text}")
+
+    @classmethod
+    def OUTPUT_TYPES(cls):
+        return ("STRING",)
+
+    RETURN_TYPES = ("STRING",)
+    RETURN_NAMES = ("response",)
+    FUNCTION = "analyze"
+    CATEGORY = "AI4ArtsEd"
+
+    def analyze(self, images, instruction, api_key, model, max_tokens, temperature):
+        image = images[0]  # Expecting a list of images
+        image_np = self._prepare_image_array(image)
+        encoded_image = self._encode_image(image_np)
+
+        messages = [
+            {"role": "system", "content": instruction},
+            {"role": "user", "content": f"Attached image: {encoded_image[:50]}..."}
+        ]
+
+        payload = {
+            "model": model,
+            "messages": messages,
+            "temperature": temperature,
+            "max_tokens": max_tokens,
+        }
+
+        headers = {
+            "Authorization": f"Bearer {api_key}",
+            "Content-Type": "application/json"
+        }
+
+        response = requests.post("https://openrouter.ai/api/v1/chat/completions", json=payload, headers=headers)
+        if response.status_code != 200:
+            raise RuntimeError(f"OpenRouter API error {response.status_code}: {response.text}")
+
+        response_data = response.json()
+        output_text = response_data['choices'][0]['message']['content']
+        return (output_text,)
+
+    def _prepare_image_array(self, image):
+        if isinstance(image, torch.Tensor):
+            image = image.cpu().detach().numpy()
+
+        if image.ndim == 3:
+            # Check for HWC format and convert to CHW if needed
+            if image.shape[0] not in (1, 3, 4) and image.shape[-1] in (1, 3, 4):
+                image = image.transpose(2, 0, 1)
+
+        if image.ndim != 3 or image.shape[0] not in (1, 3, 4):
+            raise ValueError(f"Unsupported image shape: expected channels first, got shape {image.shape}")
+
+        return image
+
+    def _encode_image(self, image_array):
+        # Convert from CHW to HWC for encoding
+        image = image_array.transpose(1, 2, 0)
+        if image.dtype != np.uint8:
+            image = np.clip(image, 0, 1)
+            image = (image * 255).astype(np.uint8)
+
+        success, buffer = cv2.imencode(".jpg", image)
+        if not success:
+            raise RuntimeError("Failed to encode image")
+
+        jpg_as_text = base64.b64encode(buffer).decode("utf-8")
+        return f"data:image/jpeg;base64,{jpg_as_text}"
+
+# Required for ComfyUI to discover and use the node
+NODE_CLASS_MAPPINGS = {
+    "ai4artsed_openrouter_imageanalysis": AI4ArtsEd_OpenRouter_ImageAnalysis,
+}
+
+NODE_DISPLAY_NAME_MAPPINGS = {
+    "ai4artsed_openrouter_imageanalysis": "AI4ArtsEd OpenRouter: Image Analysis",
+}
