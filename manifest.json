@@ -4,7 +4,7 @@
   "version": "0.2.0",
   "author": "Prof. Dr. Benjamin Jörissen",
   "description": "ComfyUI nodes for the project AI for Arts Education",
-  "nodes": ["ai4artsed_ollama", "ai4artsed_openrouter"],
+  "nodes": ["ai4artsed_ollama", "ai4artsed_openrouter", "ai4artsed_openrouter_imageanalysis"],
   "requirements": ["ollama"],
   "license": "Apache-2.0"
 }
