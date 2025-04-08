@@ -88,9 +88,9 @@ class ai4artsed_openrouter_imageanalysis:
         jpg_as_text = base64.b64encode(buffer).decode("utf-8")
         return f"data:image/jpeg;base64,{jpg_as_text}"
 
-# Required for ComfyUI to discover and use the node
+# Korrigierte Mappings:
 NODE_CLASS_MAPPINGS = {
-    "ai4artsed_openrouter_imageanalysis": AI4ArtsEd_OpenRouter_ImageAnalysis,
+    "ai4artsed_openrouter_imageanalysis": ai4artsed_openrouter_imageanalysis,
 }
 
 NODE_DISPLAY_NAME_MAPPINGS = {
