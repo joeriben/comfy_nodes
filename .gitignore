@@ -39,3 +39,6 @@ build/
 # OS-generated files
 Thumbs.db
 ehthumbs.db
+
+# API-Schlüsseldatei ausschließen
+openrouter.key
