@@ -1,3 +1,14 @@
+"""
+AI4ArtsEd OpenRouter Image Analysis Node
+
+This file contains adapted code from:
+https://github.com/stavsap/comfyui-ollama
+Original code by stavsap, licensed under the Apache License 2.0.
+
+This version is licensed under the European Union Public License (EUPL) v1.2.
+See LICENSE and THIRD_PARTY_LICENSES/comfyui-ollama_APACHE.txt for details.
+"""
+
 import torch
 import numpy as np
 import cv2
