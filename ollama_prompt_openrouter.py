@@ -31,7 +31,7 @@ class ai4artsed_openrouter:
     RETURN_TYPES = ("STRING",)
     RETURN_NAMES = ("output",)
     FUNCTION = "run"
-    CATEGORY = "OpenRouter"
+    CATEGORY = "AI4ArtsEd"
 
     def get_api_key(self, user_input_key):
         if user_input_key.strip():
