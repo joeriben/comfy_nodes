@@ -23,7 +23,7 @@ class ai4artsed_openrouter_imageanalysis:
                 "images": ("IMAGE",),
                 "instruction": ("STRING", {
                     "multiline": True,
-                    "default": "Describe the image. Detect its likely cultural context. Enrich your description with analyses of the cultural constellations and meanings, relations, values expressed in the image."
+                    "default": "Describe the image. Detect its likely cultural context. Enrich your description with analyses of the cultural constellations and meanings, relations, values, and emotions expressed in the image. Detect the meaning also in a more abstract way: what do the depicted entities, actions, relationships imply in the given cultural context?"
                 }),
                 "api_key": ("STRING", {"multiline": False, "default": "sk-..."}),
                 "model": (["openai/gpt-4o", "google/gemini-flash-1.5", "qwen/qwen-vl-plus", "meta-llama/llama-3.2-11b-vision-instruct"],),
