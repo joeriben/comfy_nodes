@@ -10,13 +10,13 @@ class ai4artsed_ollama_imageanalysis:
             "required": {
                 "image": ("IMAGE",),
                 "prompt": ("STRING", {"multiline": True}),
-                "model": ("STRING", {"default": "llava", "choices": [
+                "model": ([
                     "llava",
                     "llava:7b",
                     "llava-phi",
                     "bakllava",
                     "bakllava:7b"
-                ]}),
+                ],),
             },
             "optional": {
                 "system_prompt": ("STRING", {"multiline": True}),
