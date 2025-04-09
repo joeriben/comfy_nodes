@@ -45,6 +45,16 @@ More information: https://kubi-meta.de/ai4artsed
 **Outputs:**
 - `text_1` to `text_12`: Routed outputs based on selected mode.
 
+### 5. `AI4ArtsEd Text Remix`
+→ Selectively or randomly combines 1–12 text inputs.
+
+**Inputs:**
+- `mode`: `"random"`, `"all"`, or `"1"`–`"12"`
+- `text_1` to `text_12`: Optional style or instruction inputs
+
+**Output:**
+- `text`: Combined or selected text based on mode.
+
 ---
 
 ## 🔐 API Key Configuration (OpenRouter)
