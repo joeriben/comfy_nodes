@@ -10,23 +10,13 @@ class ai4artsed_ollama_imageanalysis:
             "required": {
                 "image": ("IMAGE",),
                 "prompt": ("STRING", {"multiline": True}),
-                "model": (
-                    "STRING",
-                    {
-                        "default": "llava",
-                        "choices": [
-                            "llava",
-                            "llava:7b",
-                            "llava-phi",
-                            "bakllava",
-                            "bakllava:7b"
-                        ]
-                    }
-                ),
-                "info": ("STRING", {
-                    "default": "💡 Only the listed models support image inputs in Ollama.",
-                    "multiline": True
-                }),
+                "model": ("STRING", {"default": "llava", "choices": [
+                    "llava",
+                    "llava:7b",
+                    "llava-phi",
+                    "bakllava",
+                    "bakllava:7b"
+                ]}),
             },
             "optional": {
                 "system_prompt": ("STRING", {"multiline": True}),
@@ -38,7 +28,7 @@ class ai4artsed_ollama_imageanalysis:
     FUNCTION = "analyze"
     CATEGORY = "AI4ArtsEd"
 
-    def analyze(self, image, prompt, model="llava", info=None, system_prompt=None):
+    def analyze(self, image, prompt, model="llava", system_prompt=None):
         img_pil = Image.fromarray((image[0] * 255).astype("uint8"))
         buffer = io.BytesIO()
         img_pil.save(buffer, format="JPEG")
