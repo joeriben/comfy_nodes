@@ -10,9 +10,21 @@ class ai4artsed_ollama_imageanalysis:
             "required": {
                 "image": ("IMAGE",),
                 "prompt": ("STRING", {"multiline": True}),
-                "model": (cls._get_model_list(),),
+                "model": (
+                    "STRING",
+                    {
+                        "default": "llava",
+                        "choices": [
+                            "llava",
+                            "llava:7b",
+                            "llava-phi",
+                            "bakllava",
+                            "bakllava:7b"
+                        ]
+                    }
+                ),
                 "info": ("STRING", {
-                    "default": "💡 Only models like 'llava', 'llava-1.5', or 'bakllava' support image inputs in Ollama.",
+                    "default": "💡 Only the listed models support image inputs in Ollama.",
                     "multiline": True
                 }),
             },
@@ -25,17 +37,6 @@ class ai4artsed_ollama_imageanalysis:
     RETURN_NAMES = ("text",)
     FUNCTION = "analyze"
     CATEGORY = "AI4ArtsEd"
-
-    @staticmethod
-    def _get_model_list():
-        try:
-            res = requests.get("http://localhost:11434/api/tags", timeout=1)
-            res.raise_for_status()
-            models = res.json().get("models", [])
-            model_names = [m["name"] for m in models]
-            return ("STRING", {"default": model_names[0], "choices": model_names}) if model_names else ("STRING", {"default": "llava"})
-        except:
-            return ("STRING", {"default": "llava", "choices": ["llava"]})
 
     def analyze(self, image, prompt, model="llava", info=None, system_prompt=None):
         img_pil = Image.fromarray((image[0] * 255).astype("uint8"))
