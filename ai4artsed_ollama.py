@@ -6,19 +6,13 @@ class ai4artsed_ollama:
         return {
             "required": {
                 "prompt": ("STRING", {"multiline": True}),
-                "model": (
-                    "STRING",
-                    {
-                        "default": "gemma3:27b",
-                        "choices": [
-                            "mistral:7b",
-                            "gemma3:27b",
-                            "deepseek-r1:32b",
-                            "deepseek-r1:14b",
-                            "exaone-deep:32b"
-                        ]
-                    }
-                ),
+                "model": ("STRING", {"default": "gemma3:27b", "choices": [
+                    "mistral:7b",
+                    "gemma3:27b",
+                    "deepseek-r1:32b",
+                    "deepseek-r1:14b",
+                    "exaone-deep:32b"
+                ]}),
                 "system_prompt": ("STRING", {"multiline": True}),
             }
         }
