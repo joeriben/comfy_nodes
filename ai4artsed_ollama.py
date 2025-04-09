@@ -3,18 +3,22 @@ import requests
 class ai4artsed_ollama:
     @classmethod
     def INPUT_TYPES(cls):
-        model_choices = [
-            "mistral:7b",
-            "gemma3:27b",
-            "deepseek-r1:32b",
-            "deepseek-r1:14b",
-            "exaone-deep:32b"
-        ]
-
         return {
             "required": {
                 "prompt": ("STRING", {"multiline": True}),
-                "model": ("STRING", {"default": "gemma3:27b", "choices": model_choices}),
+                "model": (
+                    "STRING",
+                    {
+                        "default": "gemma3:27b",
+                        "choices": [
+                            "mistral:7b",
+                            "gemma3:27b",
+                            "deepseek-r1:32b",
+                            "deepseek-r1:14b",
+                            "exaone-deep:32b"
+                        ]
+                    }
+                ),
                 "system_prompt": ("STRING", {"multiline": True}),
             }
         }
