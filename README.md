@@ -17,6 +17,7 @@ More information: https://kubi-meta.de/ai4artsed
 - Optional debug logging and model unloading for Ollama.
 - Optional API key file handling for OpenRouter.
 - Includes an image-to-text analysis node for multimodal LLMs.
+- New: **Flexible text distribution** node for routing strings to multiple downstream paths.
 
 ---
 
@@ -31,6 +32,19 @@ More information: https://kubi-meta.de/ai4artsed
 ### 3. `AI4ArtsEd OpenRouter ImageAnalysis`
 → Sends image input (as base64-encoded JPEG) to multimodal LLMs via OpenRouter (e.g. GPT-4V) with cultural-instruction prompts.
 
+### 4. `AI4ArtsEd Text Distributor`
+→ Distributes a text string to one or more of 12 outputs based on mode.
+
+**Inputs:**
+- `text`: Input string to be routed.
+- `mode`: Distribution strategy — one of:
+  - `"random"`: Sends to a randomly chosen output.
+  - `"all"`: Sends to all outputs.
+  - `"1"` to `"12"`: Sends to a specific output index.
+
+**Outputs:**
+- `text_1` to `text_12`: Routed outputs based on selected mode.
+
 ---
 
 ## 🔐 API Key Configuration (OpenRouter)
@@ -44,36 +58,7 @@ More information: https://kubi-meta.de/ai4artsed
 
 ## 🚀 Installation
 
-Use the ComyUI Node Manager or clone the repo into your ComfyUI custom_nodes directory:
+Use the ComfyUI Node Manager or clone the repo into your ComfyUI `custom_nodes` directory:
 
 ```bash
 git clone https://github.com/yourusername/ai4artsed_comfyui.git
-```
-
-Restart ComfyUI or use the Node Manager.
-
-Make sure:
-- Ollama is running locally (if used).
-- Your OpenRouter API key is configured.
-
----
-
-## 📄 License
-
-This project is licensed under the **European Union Public License (EUPL) v1.2**.  
-It guarantees public access and commons-based reuse under strong copyleft terms.
-
-Full license text: https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12  
-See `LICENSE` and the German summary inside for more information.
-
----
-
-### 📜 Third-party code
-
-Parts of the code in `ai4artsed_openrouter_imageanalysis.py` are adapted from the  
-[ComfyUI Ollama project by stavsap](https://github.com/stavsap/comfyui-ollama),  
-licensed under the Apache License 2.0.
-
-See `THIRD_PARTY_LICENSES/comfyui-ollama_APACHE.txt` for full details.
-
----
