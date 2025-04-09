@@ -3,13 +3,18 @@ import requests
 class ai4artsed_ollama:
     @classmethod
     def INPUT_TYPES(cls):
-        model_choices = cls._get_model_choices()
-        default_model = "gemma:7b" if "gemma:7b" in model_choices else (model_choices[0] if model_choices else "gemma:7b")
+        model_choices = [
+            "mistral:7b",
+            "gemma3:27b",
+            "deepseek-r1:32b",
+            "deepseek-r1:14b",
+            "exaone-deep:32b"
+        ]
 
         return {
             "required": {
                 "prompt": ("STRING", {"multiline": True}),
-                "model": ("STRING", {"default": default_model, "choices": model_choices}),
+                "model": ("STRING", {"default": "gemma3:27b", "choices": model_choices}),
                 "system_prompt": ("STRING", {"multiline": True}),
             }
         }
@@ -19,17 +24,7 @@ class ai4artsed_ollama:
     FUNCTION = "run"
     CATEGORY = "AI4ArtsEd"
 
-    @staticmethod
-    def _get_model_choices():
-        try:
-            res = requests.get("http://localhost:11434/api/tags", timeout=1)
-            res.raise_for_status()
-            models = res.json().get("models", [])
-            return [m["name"] for m in models]
-        except:
-            return ["gemma:7b"]
-
-    def run(self, prompt, model="gemma:7b", system_prompt=None):
+    def run(self, prompt, model="gemma3:27b", system_prompt=None):
         payload = {
             "model": model,
             "prompt": prompt,
