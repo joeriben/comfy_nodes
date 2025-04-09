@@ -6,7 +6,7 @@ from .ai4artsed_text_distributor import ai4artsed_text_distributor
 NODE_CLASS_MAPPINGS = {
     "ai4artsed_ollama": ai4artsed_ollama,
     "ai4artsed_openrouter": ai4artsed_openrouter,
-    "ai4artsed_openrouter_imageanalysis": AI4ArtsEd_OpenRouter_ImageAnalysis,
+    "ai4artsed_openrouter_imageanalysis": ai4artsed_openrouter_imageanalysis,
     "ai4artsed_text_distributor": ai4artsed_text_distributor,
 }
 
