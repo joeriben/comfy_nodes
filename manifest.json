@@ -6,6 +6,7 @@
   "description": "ComfyUI nodes for the project AI for Arts Education",
   "nodes": [
     "ai4artsed_ollama",
+    "ai4artsed_ollama_imageanalysis",
     "ai4artsed_openrouter",
     "ai4artsed_openrouter_imageanalysis",
     "ai4artsed_text_remix"
