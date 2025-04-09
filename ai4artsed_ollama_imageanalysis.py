@@ -29,7 +29,8 @@ class ai4artsed_ollama_imageanalysis:
     CATEGORY = "AI4ArtsEd"
 
     def analyze(self, image, prompt, model="llava", system_prompt=None):
-        img_pil = Image.fromarray((image[0] * 255).astype("uint8"))
+        image_np = image[0].detach().cpu().numpy()
+        img_pil = Image.fromarray((image_np * 255).astype("uint8"))
         buffer = io.BytesIO()
         img_pil.save(buffer, format="JPEG")
         img_base64 = base64.b64encode(buffer.getvalue()).decode("utf-8")
