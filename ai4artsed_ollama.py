@@ -1,61 +1,46 @@
-from ollama import Client
-from pprint import pprint
 import requests
 
 class ai4artsed_ollama:
-    def __init__(self):
-        pass
-
     @classmethod
     def INPUT_TYPES(cls):
         return {
             "required": {
-                "input_prompt": ("STRING", {"forceInput": True, "multiline": True}),
-                "input_context": ("STRING", {"forceInput": True, "multiline": True}),
-                "style_prompt": ("STRING", {
-                    "default": "Translate the prompt according to the context. Translate epistemic, cultural, and aesthetic, as well as value-related contexts.",
-                    "multiline": True
-                }),
-                "url": ("STRING", {"default": "http://localhost:11434"}),
-                "model": (["mistral:7b", "gemma3:27b", "deepseek-r1:32b", "deepseek-r1:14b", "exaone-deep:32b"],),
-                "debug": (["enable", "disable"],),
-                "unload_after": (["enable", "disable"],),
+                "prompt": ("STRING", {"multiline": True}),
+                "model": (cls._get_model_list(),),
+                "system_prompt": ("STRING", {"multiline": True}),
             }
         }
 
     RETURN_TYPES = ("STRING",)
-    RETURN_NAMES = ("output",)
+    RETURN_NAMES = ("text",)
     FUNCTION = "run"
     CATEGORY = "AI4ArtsEd"
 
-    def run(self, input_prompt, input_context, style_prompt, url, model, debug, unload_after):
-        full_prompt = f"Task:\n{style_prompt.strip()}\n\nContext:\n{input_context.strip()}\nPrompt:\n{input_prompt.strip()}"
+    @staticmethod
+    def _get_model_list():
+        try:
+            res = requests.get("http://localhost:11434/api/tags", timeout=1)
+            res.raise_for_status()
+            models = res.json().get("models", [])
+            model_names = [m["name"] for m in models]
+            default_model = "gemma:7b" if "gemma:7b" in model_names else (model_names[0] if model_names else "gemma:7b")
+            return ("STRING", {"default": default_model, "choices": model_names}) if model_names else ("STRING", {"default": "gemma:7b"})
+        except:
+            return ("STRING", {"default": "gemma:7b", "choices": ["gemma:7b"]})
 
-        client = Client(host=url)
+    def run(self, prompt, model="gemma:7b", system_prompt=None):
+        payload = {
+            "model": model,
+            "prompt": prompt,
+            "system": system_prompt,
+            "stream": False
+        }
 
-        # Anfrage an Modell mit explizitem Systemprompt (Kontextreset)
-        response = client.generate(
-            model=model,
-            prompt=full_prompt,
-            keep_alive="5m",
-            format="",
-            system="You are a fresh assistant instance. Forget all previous conversation history."
-        )
+        try:
+            response = requests.post("http://localhost:11434/api/generate", json=payload)
+            response.raise_for_status()
+            result = response.json().get("response", "")
+        except Exception as e:
+            result = f"[Error from Ollama] {str(e)}"
 
-        if debug == "enable":
-            print(">>> AI4ARTSED OLLAMA NODE <<<")
-            print("Model:", model)
-            print("Prompt sent:\n", full_prompt)
-            print("Response received:\n", response.get("response", ""))
-
-        # Modell ggf. entladen
-        if unload_after == "enable":
-            try:
-                unload_url = url.rstrip("/") + "/api/unload"
-                res = requests.post(unload_url, json={"model": model})
-                if debug == "enable":
-                    print(f"Model '{model}' unloaded. Status: {res.status_code}")
-            except Exception as e:
-                print(f"[AI4ArtsEd Ollama Node] Unload failed: {e}")
-
-        return (response.get("response", ""),)
+        return (result,)
