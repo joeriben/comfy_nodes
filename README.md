@@ -29,8 +29,8 @@ More information: https://kubi-meta.de/ai4artsed
 ### 2. `AI4ArtsEd OpenRouter Prompt`
 → Uses hosted LLMs via OpenRouter for stylistic transformations.
 
-### 3. `AI4ArtsEd OpenRouter ImageAnalysis`
-→ Sends image input (as base64-encoded JPEG) to multimodal LLMs via OpenRouter (e.g. GPT-4V) with cultural-instruction prompts.
+### 3. `AI4ArtsEd OpenRouter/Ollama ImageAnalysis`
+→ Sends image input (as base64-encoded JPEG) to multimodal LLMs via OpenRouter (e.g. GPT-4V) or Ollama with cultural-instruction prompts.
 
 ### 4. `AI4ArtsEd Text Remix`
 → Selectively or randomly combines 1–12 text inputs.
