@@ -32,20 +32,7 @@ More information: https://kubi-meta.de/ai4artsed
 ### 3. `AI4ArtsEd OpenRouter ImageAnalysis`
 → Sends image input (as base64-encoded JPEG) to multimodal LLMs via OpenRouter (e.g. GPT-4V) with cultural-instruction prompts.
 
-### 4. `AI4ArtsEd Text Distributor`
-→ Distributes a text string to one or more of 12 outputs based on mode.
-
-**Inputs:**
-- `text`: Input string to be routed.
-- `mode`: Distribution strategy — one of:
-  - `"random"`: Sends to a randomly chosen output.
-  - `"all"`: Sends to all outputs.
-  - `"1"` to `"12"`: Sends to a specific output index.
-
-**Outputs:**
-- `text_1` to `text_12`: Routed outputs based on selected mode.
-
-### 5. `AI4ArtsEd Text Remix`
+### 4. `AI4ArtsEd Text Remix`
 → Selectively or randomly combines 1–12 text inputs.
 
 **Inputs:**
