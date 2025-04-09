@@ -1,6 +1,6 @@
 from .ai4artsed_ollama import ai4artsed_ollama
 from .ai4artsed_openrouter import ai4artsed_openrouter
-from .ai4artsed_openrouter_imageanalysis import AI4ArtsEd_OpenRouter_ImageAnalysis
+from .ai4artsed_openrouter_imageanalysis import ai4artsed_openrouter_imageanalysis
 from .ai4artsed_text_distributor import ai4artsed_text_distributor
 
 NODE_CLASS_MAPPINGS = {
