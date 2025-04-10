@@ -10,8 +10,8 @@
     "ai4artsed_openrouter",
     "ai4artsed_openrouter_imageanalysis",
     "ai4artsed_text_remix",
-    "ai4artsed_text_transform_creative",
-    "ai4artsed_text_transform_artform"
+    "ai4artsed_random_instruction_generator",
+    "ai4artsed_random_artform_generator"
   ],
   "requirements": ["ollama"],
   "license": "Apache-2.0",
