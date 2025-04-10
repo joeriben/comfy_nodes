@@ -42,6 +42,24 @@ More information: https://kubi-meta.de/ai4artsed
 **Output:**
 - `text`: Combined or selected text based on mode.
 
+### 5. `AI4ArtsEd Text Transform Creative`
+→ Generates four creative, experimental remixes of a single text prompt using philosophical, symbolic, poetic or surreal instructions.
+
+**Input:**
+- `text` (STRING)
+
+**Outputs:**
+- `transform_1` to `transform_4` (STRING)
+
+### 6. `AI4ArtsEd Text Transform Artform`
+→ Generates four stylized prompt variants based on global cultural formats and artistic styles (e.g. Yoruba praise poem, Bauhaus manual, Inuit myth).
+
+**Input:**
+- `text` (STRING)
+
+**Outputs:**
+- `artform_1` to `artform_4` (STRING)
+
 ---
 
 ## 🔐 API Key Configuration (OpenRouter)
