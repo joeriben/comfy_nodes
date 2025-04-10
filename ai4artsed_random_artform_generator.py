@@ -1,6 +1,6 @@
 import random
 
-class ai4artsed_text_transform_artform:
+class ai4artsed_random_artform_generator:
     @classmethod
     def INPUT_TYPES(cls):
         return {
@@ -45,6 +45,8 @@ class ai4artsed_text_transform_artform:
             "Present this like a jazz improvisation.",
             "Reframe it as a scene from Italian neorealism.",
             "Adapt this into an avant-garde performance script.",
+            "Express this like a graffiti mural on a political wall.",
+            "Rewrite this in the style of a 90s cyberpunk zine.",
             "Transform the text into a Haitian Vodou ceremonial chant."
         ]
 
