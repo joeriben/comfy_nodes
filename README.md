@@ -60,6 +60,16 @@ More information: https://kubi-meta.de/ai4artsed
 **Outputs:**
 - `artform_1` to `artform_4` (STRING)
 
+### 7. `AI4ArtsEd Random Language Selector`
+→ Selects 12 random languages from a curated list including both major and marginalized world languages, suitable for translation-based workflows such as `stille_post`.
+
+**Input:**
+- *(none)*
+
+**Outputs:**
+- `language_1` to `language_12` (STRING): Language names selected from a diverse set of model-supported languages (including Yoruba, Māori, Guarani, etc.)
+
+
 
 ---
 
