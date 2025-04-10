@@ -42,23 +42,24 @@ More information: https://kubi-meta.de/ai4artsed
 **Output:**
 - `text`: Combined or selected text based on mode.
 
-### 5. `AI4ArtsEd Text Transform Creative`
-→ Generates four creative, experimental remixes of a single text prompt using philosophical, symbolic, poetic or surreal instructions.
+### 5. `AI4ArtsEd Random Instruction Generator`
+→ Generates four creative, symbolic, or surreal instruction phrases to be used as part of prompt contexts.
 
 **Input:**
-- `text` (STRING)
+- `text` (STRING) – typically a core concept or message
 
 **Outputs:**
-- `transform_1` to `transform_4` (STRING)
+- `instruction_1` to `instruction_4` (STRING)
 
-### 6. `AI4ArtsEd Text Transform Artform`
-→ Generates four stylized prompt variants based on global cultural formats and artistic styles (e.g. Yoruba praise poem, Bauhaus manual, Inuit myth).
+### 6. `AI4ArtsEd Random Artform Generator`
+→ Generates four culturally or stylistically distinct reinterpretation prompts, suitable for LLM context use.
 
 **Input:**
 - `text` (STRING)
 
 **Outputs:**
 - `artform_1` to `artform_4` (STRING)
+
 
 ---
 
