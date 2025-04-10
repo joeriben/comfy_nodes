@@ -90,8 +90,9 @@ class ai4artsed_openrouter_imageanalysis:
         if image.dtype != np.uint8:
             image = np.clip(image, 0, 1)
             image = (image * 255).astype(np.uint8)
-
-        success, buffer = cv2.imencode(".jpg", image)
+        
+        image_rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+        success, buffer = cv2.imencode(".jpg", image_rgb)
         if not success:
             raise RuntimeError("Failed to encode image")
 
