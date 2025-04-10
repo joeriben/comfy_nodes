@@ -4,9 +4,7 @@ class ai4artsed_random_instruction_generator:
     @classmethod
     def INPUT_TYPES(cls):
         return {
-            "required": {
-                "text": ("STRING", {"multiline": True}),
-            },
+            "required": {}
         }
 
     RETURN_TYPES = ("STRING", "STRING", "STRING", "STRING")
@@ -14,7 +12,7 @@ class ai4artsed_random_instruction_generator:
     FUNCTION = "generate_instructions"
     CATEGORY = "AI4ArtsEd"
 
-    def generate_instructions(self, text):
+    def generate_instructions(self):
         transformations = [
             "Translate this text into the language of nature.",
             "Write this text as if it were part of a theatrical play.",
@@ -74,6 +72,4 @@ class ai4artsed_random_instruction_generator:
             "Transform this into a bureaucratic AI’s attempt at poetry after a memory leak."
         ]
 
-        selected = random.sample(transformations, 4)
-        outputs = [f"{instruction}\n\n{text}" for instruction in selected]
-        return tuple(outputs)
+        return tuple(random.sample(transformations, 4))
