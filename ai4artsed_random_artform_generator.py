@@ -4,9 +4,7 @@ class ai4artsed_random_artform_generator:
     @classmethod
     def INPUT_TYPES(cls):
         return {
-            "required": {
-                "text": ("STRING", {"multiline": True}),
-            },
+            "required": {}
         }
 
     RETURN_TYPES = ("STRING", "STRING", "STRING", "STRING")
@@ -14,7 +12,7 @@ class ai4artsed_random_artform_generator:
     FUNCTION = "generate_artforms"
     CATEGORY = "AI4ArtsEd"
 
-    def generate_artforms(self, text):
+    def generate_artforms(self):
         artforms = [
             "Rewrite this in the style of Japanese Noh theatre.",
             "Render the text as a Yoruba praise poem.",
@@ -69,6 +67,4 @@ class ai4artsed_random_artform_generator:
             "Convert this into the lyrics of a British punk song."
         ]
 
-        selected = random.sample(artforms, 4)
-        outputs = [f"{instruction}\n\n{text}" for instruction in selected]
-        return tuple(outputs)
+        return tuple(random.sample(artforms, 4))
