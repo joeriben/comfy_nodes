@@ -1,6 +1,6 @@
 import random
 
-class ai4artsed_transform_artform:
+class ai4artsed_text_transform_artform:
     @classmethod
     def INPUT_TYPES(cls):
         return {
