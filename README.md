@@ -76,5 +76,21 @@ More information: https://kubi-meta.de/ai4artsed
 
 Use the ComfyUI Node Manager or clone the repo into your ComfyUI `custom_nodes` directory:
 
+## CREDITS
+
+This project includes adapted code from the following third-party sources:
+
+- **ComfyUI-Show-Text** by fairy-root  
+  [https://github.com/fairy-root/ComfyUI-Show-Text](https://github.com/fairy-root/ComfyUI-Show-Text)  
+  Licensed under the MIT License.  
+  Adapted in `ai4artsed_show_text.py` to enable text output display in ComfyUI workflows.
+
+- **comfyui-ollama** by stavsap  
+  [https://github.com/stavsap/comfyui-ollama](https://github.com/stavsap/comfyui-ollama)  
+  Licensed under the Apache License 2.0.  
+  Adapted in `ai4artsed_openrouter_imageanalysis.py` and related files to support multimodal LLM image analysis.  
+  See `license/THIRD_PARTY_LICENSES/comfyui-ollama_APACHE.txt` for license details.
+
+
 ```bash
 git clone https://github.com/yourusername/ai4artsed_comfyui.git
