@@ -45,9 +45,28 @@ class ai4artsed_random_artform_generator:
             "Present this like a jazz improvisation.",
             "Reframe it as a scene from Italian neorealism.",
             "Adapt this into an avant-garde performance script.",
+            "Transform the text into a Haitian Vodou ceremonial chant.",
+            "Transform this into a shadow puppet play from Southeast Asia.",
             "Express this like a graffiti mural on a political wall.",
             "Rewrite this in the style of a 90s cyberpunk zine.",
-            "Transform the text into a Haitian Vodou ceremonial chant."
+            "Choreograph this message as an Indigenous Australian corroboree dance.",
+            "Compose this as a call-and-response chant from the Caribbean.",
+            "Render this as a Zapatista resistance broadcast.",
+            "Write this like a diary entry from an Amazonian river spirit.",
+            "Retell this as a Sámi joik song from northern Europe.",
+            "Express this as a coded message within an East German punk zine.",
+            "Turn this into an Inuit bone carving narrative.",
+            "Translate the text into the brushstrokes of a Tibetan thangka painting.",
+            "Reimagine this as an urban legend passed through WhatsApp voice notes.",
+            "Frame this as an allegory spoken during a Vodou ceremony in Haiti.",
+            "Adapt this into an instructional diagram for a community mural project.",
+            "Describe the message through the choreography of a Bharatanatyam solo.",
+            "Render this as a riddle spoken in a West African initiation ritual.",
+            "Convert this into a sequence of protest posters made in stencil style.",
+            "Compose this as a visual poem for a digital screen in public space.",
+            "Reframe this message through the movements of a whirling dervish.",
+            "Express this in the symbolic logic of a Maori moko tattoo design.",
+            "Convert this into the lyrics of a british punk song"
         ]
 
         selected = random.sample(artforms, 4)
