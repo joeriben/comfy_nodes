@@ -10,11 +10,11 @@ class ai4artsed_random_instruction_generator:
         }
 
     RETURN_TYPES = ("STRING", "STRING", "STRING", "STRING")
-    RETURN_NAMES = ("transform_1", "transform_2", "transform_3", "transform_4")
-    FUNCTION = "generate_transforms"
+    RETURN_NAMES = ("instruction_1", "instruction_2", "instruction_3", "instruction_4")
+    FUNCTION = "generate_instructions"
     CATEGORY = "AI4ArtsEd"
 
-    def generate_transforms(self, text):
+    def generate_instructions(self, text):
         transformations = [
             "Translate this text into the language of nature.",
             "Write this text as if it were part of a theatrical play.",
