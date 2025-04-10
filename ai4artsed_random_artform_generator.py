@@ -66,7 +66,7 @@ class ai4artsed_random_artform_generator:
             "Compose this as a visual poem for a digital screen in public space.",
             "Reframe this message through the movements of a whirling dervish.",
             "Express this in the symbolic logic of a Maori moko tattoo design.",
-            "Convert this into the lyrics of a british punk song"
+            "Convert this into the lyrics of a British punk song."
         ]
 
         selected = random.sample(artforms, 4)
