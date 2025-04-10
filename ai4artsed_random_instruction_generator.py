@@ -1,6 +1,6 @@
 import random
 
-class ai4artsed_text_transform_creative:
+class ai4artsed_random_instruction_generator:
     @classmethod
     def INPUT_TYPES(cls):
         return {
@@ -22,7 +22,10 @@ class ai4artsed_text_transform_creative:
             "Turn the text into a rhythmic rap.",
             "Retell the same text as a fable with animals.",
             "Explain the content as if you're speaking to an alien.",
-            "Write a philosophical version of this text.",
+            "Write a philosophical version of this text, Wittgenstein style.",
+            "Write a philosophical version of this text, Heidegger style.",
+            "Write a philosophical version of this text, Adorno style.",
+            "Write a philosophical version of this text, Wiener positivism style.",
             "Compose an artistic interpretation of this text.",
             "Transform the text into a political speech.",
             "Make it into a scientific summary.",
@@ -45,7 +48,30 @@ class ai4artsed_text_transform_creative:
             "Reframe the text as a recipe for emotional resilience.",
             "Retell it as an urban legend whispered in a digital back alley.",
             "Turn this text into an algorithm written in poetic form.",
-            "Present it as a eulogy for a lost language."
+            "Present it as a eulogy for a lost language.",
+            "Describe this text from the perspective of an object left behind.",
+            "Retell the message as if it were a memory unraveling.",
+            "Reimagine this as a poetic weather forecast.",
+            "Frame the text as a love letter to a future generation.",
+            "Express this message in the voice of a machine gaining self-awareness.",
+            "Rewrite it as a cryptic message found on a ruined wall.",
+            "Transform this into the internal logic of a dream.",
+            "Reframe this message as a meditation on disappearance.",
+            "Narrate this as the stream of thought of a lost traveler.",
+            "Convey this as a forgotten ritual instruction.",
+            "Write this as if it were embedded in the DNA of a flower.",
+            "Transform it into the sensory experience of light moving through a forest.",
+            "Tell this story through the thoughts of a satellite observing Earth.",
+            "Phrase the message as a conversation between time and memory.",
+            "Render this as a code hidden in a song played underwater.",
+            "Write this as an ancient myth remembered incorrectly.",
+            "Speak this message as if through the fog of a fever dream.",
+            "Compose this as a warning etched into a meteorite.",
+            "Whisper this story as a myth from a language that no longer exists.",
+            "Express this through the improvisation of a mind in love.",
+            "Write this as the inner monologue of a whale falling through the atmosphere.",
+            "Summarize this from the perspective of a flower pot about to hit the ground.",
+            "Transform this into a bureaucratic AI’s attempt at poetry after a memory leak."
         ]
 
         selected = random.sample(transformations, 4)
