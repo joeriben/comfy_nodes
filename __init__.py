@@ -6,6 +6,7 @@ from .ai4artsed_text_remix import ai4artsed_text_remix
 from .ai4artsed_show_text import ai4artsed_show_text
 from .ai4artsed_random_instruction_generator import ai4artsed_random_instruction_generator
 from .ai4artsed_random_artform_generator import ai4artsed_random_artform_generator
+from .ai4artsed_random_language_selector import ai4artsed_random_language_selector
 
 NODE_CLASS_MAPPINGS = {
     "ai4artsed_ollama": ai4artsed_ollama,
@@ -16,6 +17,7 @@ NODE_CLASS_MAPPINGS = {
     "ai4artsed_show_text": ai4artsed_show_text,
     "ai4artsed_random_instruction_generator": ai4artsed_random_instruction_generator,
     "ai4artsed_random_artform_generator": ai4artsed_random_artform_generator,
+    "ai4artsed_random_language_selector": ai4artsed_random_language_selector,
 }
 
 NODE_DISPLAY_NAME_MAPPINGS = {
@@ -27,4 +29,5 @@ NODE_DISPLAY_NAME_MAPPINGS = {
     "ai4artsed_show_text": "AI4ArtsEd Show Text",
     "ai4artsed_random_instruction_generator": "Random Instruction Generator",
     "ai4artsed_random_artform_generator": "Random Artform Generator",
+    "ai4artsed_random_language_selector": "Random Language Selector",
 }
