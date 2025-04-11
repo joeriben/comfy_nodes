@@ -3,7 +3,6 @@ from .ai4artsed_ollama_imageanalysis import ai4artsed_ollama_imageanalysis
 from .ai4artsed_openrouter import ai4artsed_openrouter
 from .ai4artsed_openrouter_imageanalysis import ai4artsed_openrouter_imageanalysis
 from .ai4artsed_text_remix import ai4artsed_text_remix
-from .showtext import ShowText
 from .ai4artsed_random_instruction_generator import ai4artsed_random_instruction_generator
 from .ai4artsed_random_artform_generator import ai4artsed_random_artform_generator
 from .ai4artsed_random_language_selector import ai4artsed_random_language_selector
@@ -14,7 +13,6 @@ NODE_CLASS_MAPPINGS = {
     "ai4artsed_openrouter": ai4artsed_openrouter,
     "ai4artsed_openrouter_imageanalysis": ai4artsed_openrouter_imageanalysis,
     "ai4artsed_text_remix": ai4artsed_text_remix,
-    "ShowText": ShowText,
     "ai4artsed_random_instruction_generator": ai4artsed_random_instruction_generator,
     "ai4artsed_random_artform_generator": ai4artsed_random_artform_generator,
     "ai4artsed_random_language_selector": ai4artsed_random_language_selector,
@@ -26,7 +24,6 @@ NODE_DISPLAY_NAME_MAPPINGS = {
     "ai4artsed_openrouter": "AI4ArtsEd OpenRouter Promptinterception",
     "ai4artsed_openrouter_imageanalysis": "AI4ArtsEd OpenRouter Image Analysis",
     "ai4artsed_text_remix": "AI4ArtsEd Text Remix",
-    "ShowText": "Show Text",
     "ai4artsed_random_instruction_generator": "Random Instruction Generator",
     "ai4artsed_random_artform_generator": "Random Artform Generator",
     "ai4artsed_random_language_selector": "Random Language Selector",
