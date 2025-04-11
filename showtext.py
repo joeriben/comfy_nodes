@@ -1,4 +1,4 @@
-class ai4artsed_show_text:
+class ShowText:
     @classmethod
     def INPUT_TYPES(cls):
         return {
@@ -7,19 +7,20 @@ class ai4artsed_show_text:
             }
         }
 
-    RETURN_TYPES = ()
-    FUNCTION = "show"
+    RETURN_TYPES = ("STRING",)
+    FUNCTION = "pass_through"
     OUTPUT_NODE = True
     CATEGORY = "AI4ArtsEd"
 
-    def show(self, text):
-        return {"ui": {"text": text}}
+    def pass_through(self, text):
+        print(f"[ShowText] {text}")
+        return {"ui": {"text": text}, "result": (text,)}
 
 
 NODE_CLASS_MAPPINGS = {
-    "ai4artsed_show_text": ai4artsed_show_text,
+    "ShowText": ShowText,
 }
 
 NODE_DISPLAY_NAME_MAPPINGS = {
-    "ai4artsed_show_text": "Show Text",
+    "ShowText": "Show Text",
 }
