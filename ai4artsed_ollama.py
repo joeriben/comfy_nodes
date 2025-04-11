@@ -6,10 +6,6 @@ class ai4artsed_ollama:
         return {
             "required": {
                 "prompt": ("STRING", {"multiline": True}),
-                "system_prompt": ("STRING", {
-                    "default": "Translate the prompt according to the context. Translate epistemic, cultural, and aesthetic, as well as value-related contexts.\n\nContext:\n",
-                    "multiline": True
-                }),
                 "model": ([
                     "mistral:7b",
                     "gemma3:27b",
@@ -17,6 +13,7 @@ class ai4artsed_ollama:
                     "deepseek-r1:14b",
                     "exaone-deep:32b"
                 ],),
+                "system_prompt": ("STRING", {"multiline": True}),
             }
         }
 
@@ -25,14 +22,11 @@ class ai4artsed_ollama:
     FUNCTION = "run"
     CATEGORY = "AI4ArtsEd"
 
-    def run(self, prompt, system_prompt, model):
-        # Optional: Custom formatting logic if system_prompt uses placeholders
-        system_msg = f"{system_prompt.strip()}"
-
+    def run(self, prompt, model="gemma3:27b", system_prompt=None):
         payload = {
             "model": model,
             "prompt": prompt,
-            "system": system_msg,
+            "system": system_prompt,
             "stream": False
         }
 
