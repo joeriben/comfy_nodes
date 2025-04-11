@@ -3,7 +3,7 @@ from .ai4artsed_ollama_imageanalysis import ai4artsed_ollama_imageanalysis
 from .ai4artsed_openrouter import ai4artsed_openrouter
 from .ai4artsed_openrouter_imageanalysis import ai4artsed_openrouter_imageanalysis
 from .ai4artsed_text_remix import ai4artsed_text_remix
-from .ShowText import ShowText
+from .showtext import ShowText
 from .ai4artsed_random_instruction_generator import ai4artsed_random_instruction_generator
 from .ai4artsed_random_artform_generator import ai4artsed_random_artform_generator
 from .ai4artsed_random_language_selector import ai4artsed_random_language_selector
