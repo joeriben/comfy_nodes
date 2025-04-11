@@ -12,7 +12,7 @@
     "ai4artsed_text_remix",
     "ai4artsed_random_instruction_generator",
     "ai4artsed_random_artform_generator",
-    "ai4artsed_show_text",
+    "ShowText",
     "ai4artsed_random_language_selector"
   ],
   "requirements": ["ollama"],
