@@ -1,11 +1,19 @@
 import requests
 
 class ai4artsed_ollama:
+    def __init__(self):
+        pass
+
     @classmethod
     def INPUT_TYPES(cls):
         return {
             "required": {
-                "prompt": ("STRING", {"multiline": True}),
+                "input_prompt": ("STRING", {"forceInput": True, "multiline": True}),
+                "input_context": ("STRING", {"forceInput": True, "multiline": True}),
+                "style_prompt": ("STRING", {
+                    "default": "Translate the prompt according to the context. Translate epistemic, cultural, and aesthetic, as well as value-related contexts.",
+                    "multiline": True
+                }),
                 "model": ([
                     "mistral:7b",
                     "gemma3:27b",
@@ -13,7 +21,6 @@ class ai4artsed_ollama:
                     "deepseek-r1:14b",
                     "exaone-deep:32b"
                 ],),
-                "system_prompt": ("STRING", {"multiline": True}),
             }
         }
 
@@ -22,10 +29,11 @@ class ai4artsed_ollama:
     FUNCTION = "run"
     CATEGORY = "AI4ArtsEd"
 
-    def run(self, prompt, model="gemma3:27b", system_prompt=None):
+    def run(self, input_prompt, input_context, style_prompt, model):
+        system_prompt = f"{style_prompt}\n\nContext:\n{input_context}"
         payload = {
             "model": model,
-            "prompt": prompt,
+            "prompt": input_prompt,
             "system": system_prompt,
             "stream": False
         }
