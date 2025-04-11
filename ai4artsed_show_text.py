@@ -70,9 +70,10 @@ class ai4artsed_show_text:
 
 
 NODE_CLASS_MAPPINGS = {
-    "ShowText": ComfyUIShowText,
+    "ai4artsed_show_text": ai4artsed_show_text,
 }
 
 NODE_DISPLAY_NAME_MAPPINGS = {
-    "ShowText": "Show Text",
+    "ai4artsed_show_text": "Show Text",
 }
+
