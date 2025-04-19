@@ -71,37 +71,15 @@ More information: https://kubi-meta.de/ai4artsed
 - `language_1` to `language_12` (STRING): Language names selected from a diverse set of model-supported languages (including Yoruba, Māori, Guarani, etc.)
 
 ### 8. `Secure Access to OpenRouter API Key`
-→ Loads the API key dynamically from your local environment and provides it securely to any LLM node.
+OpenRouter.ai is a service that provides access to LLM/generativeAI systems. This is needed because LLM such das DeepSeek R1 are much to big to be run on standalone PCs. OpenRouter.ai-based nodes require an API key to access hosted models. For security, the key should **never be saved in workflows**.
+In order to safely store you OpenRouter Key:
+1) Find the Folder "custom_nodes/AI4ArtsEd/ on your system.
+2) Open the file "openrouter.key.template" with a text editor.
+3) Replace the placeholder text with your Key. Do not add anything else.
+4) Remove the ".template" part of the filename, so that it reads "openrouter.key".
+5) Make sure you do not share or upload this file. If you use a Github repository, it is strongly recommended to add "openrouter.key" to the ".gitignore".
 
----
-
-## 🔐 API Key Handling (OpenRouter)
-
-OpenRouter-based nodes require an API key to access hosted models. For security, the key should **never be saved in workflows**.
-
-You have two options:
-
-### Option 1: Runtime loading via environment variable
-
-The node `Secure Access to OpenRouter API Key` allows you to inject your API key without storing it in any file or workflow.
-
-1. Create a `.env` file in the project root (see `.env.template`):
-
-   OPENROUTER_KEY=sk-or-XXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-2. The node will automatically read the key at runtime via this environment variable.
-
-> **Recommended** for secure workflows and GitHub-based versioning.
-
----
-
-### Option 2: File-based key loading
-
-You may also create a file named `openrouter.key` in the same folder as the node scripts.  
-The key must appear in the first line of the file.
-
-> This method is supported for convenience and debugging, but discouraged for public repositories.
-
+Of course, it is possible to use other service providers than OpenRouter.ai. In order to do so, the .py files have to be modified accordingly.
 ---
 
 ### ✅ Node: `Secure Access to OpenRouter API Key`
