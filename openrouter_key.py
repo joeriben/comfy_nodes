@@ -17,7 +17,7 @@ class OpenRouterKey:
 
     RETURN_TYPES = ("STRING",)
     FUNCTION = "get_key"
-    CATEGORY = "ai4artsed/utils"
+    CATEGORY = "AI4ArtsEd"
 
     def get_key(self):
         key_path = Path(__file__).with_name("openrouter.key")
