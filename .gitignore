@@ -1,44 +1,54 @@
+# -------------------------------------
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
 *$py.class
 
-# Editor/IDE files
+# -------------------------------------
+# Editor/IDE-specific files
 .vscode/
 .idea/
 *.swp
 *.swo
 
-# MacOS system files
+# -------------------------------------
+# macOS system files
 .DS_Store
 
+# -------------------------------------
 # Python virtual environments
 venv/
-.env/
 .venv/
+.env/                # Lokale Umgebungsvariable, z. B. mit API-Keys
 
-# Log files and system dumps
+# -------------------------------------
+# Logs, caches, backups, system dumps
 *.log
 *.tmp
 *.bak
 *.orig
 
-# ComfyUI-specific user/config paths (optional)
+# -------------------------------------
+# ComfyUI-specific temp/config paths
 comfyui_temp/
 output/
 input/
 
+# -------------------------------------
 # PyInstaller / packaging
 *.spec
 dist/
 build/
 
-# IPython notebooks (if any)
+# -------------------------------------
+# Jupyter/IPython
 *.ipynb_checkpoints/
 
-# OS-generated files
+# -------------------------------------
+# Windows / system files
 Thumbs.db
 ehthumbs.db
 
-# API-Schlüsseldatei ausschließen
-openrouter.key
+# -------------------------------------
+# API keys / sensitive configuration
+openrouter.key       # falls du diesen Key manuell oder symbolisch ablegst
