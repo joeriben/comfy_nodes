@@ -1,24 +1,9 @@
-import os
+from .openrouter_key import OpenRouterKey   # ➊ import
 
-class OpenRouterKey:
-    @classmethod
-    def INPUT_TYPES(cls):
-        return {"required": {}}
+NODE_CLASS_MAPPINGS.update({
+    "OpenRouterKey": OpenRouterKey,          # ➋ registrieren
+})
 
-    RETURN_TYPES = ("STRING",)
-    FUNCTION = "get_key"
-    CATEGORY = "ai4artsed/utils"
-
-    def get_key(self):
-        key = os.getenv("OPENROUTER_KEY", "")
-        if not key:
-            raise ValueError("Die Umgebungsvariable 'OPENROUTER_KEY' ist nicht gesetzt.")
-        return (key,)
-
-NODE_CLASS_MAPPINGS = {
-    "OpenRouterKey": OpenRouterKey
-}
-
-NODE_DISPLAY_NAME_MAPPINGS = {
-    "OpenRouterKey": "OpenRouter API Key from ENV"
-}
+NODE_DISPLAY_NAME_MAPPINGS.update({
+    "OpenRouterKey": "Secure Access to OpenRouter API Key",
+})
